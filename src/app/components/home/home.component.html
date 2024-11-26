@@ -1,0 +1,42 @@
+<form [formGroup]="CreatepostForm">
+    <div class="mb-12">
+        <label for="">Post Title</label>
+        <input type="text" placeholder="Enter Title Name" formControlName="title" class="form-control"
+            style="width: 50%;">
+    </div>
+    <br>
+    <div class="mb-12">
+        <label for="">Post Body</label>
+        <input type="text" placeholder="Enter Post Body" formControlName="body" class="form-control"
+            style="width: 50%;">
+    </div>
+    <button *ngIf="!isEdit" type="button" class="blue-btn ms-1" (click)="createpost()">Save Post</button>
+    <button *ngIf="isEdit" type="button" class="blue-btn ms-1" (click)="createpost()">Edit Post</button>
+</form>
+
+<!-- List -->
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let list of displayedPosts">
+            <td>{{ list.title }}</td>
+            <td>{{ list.body }}</td>
+            <td><button (click)="getPostById(list.id)">view</button></td>
+            <td><button (click)="editPost(list.id)">edit</button></td>
+            <td><button (click)="deletePost(list.id)">delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>page {{ currentPage }} of {{ totalPage }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPage">Next</button>
+</div>
